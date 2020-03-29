@@ -2,11 +2,15 @@
 #-----LunarHunter-----#
 #This script is under the The Unlicense license!
 
+#TODO:
+#Add a list of subreddits, script will grab videos from the randomly chosen subreddit
+
 import os, sys, requests, json
 from random import randint
 from time import time, sleep
 from subprocess import Popen as process
 import vidgen
+from pathlib import Path
 total_time = time()
 #answer = input('-----LunarHunter 2019-----\n-----Reddit Video Moments Generator-----\n\nPlease note the following:\nThis program is under the Unlicense license! I would suggest running in a VM to avoid any problems that prevents termination.\n\n' +   
 #               'Please delete all files in temp and vidgen before running this program! I will add this feature soon but not currently a priority.\n' +
@@ -16,13 +20,12 @@ total_time = time()
 #    print('You did not indicate approval!')
 #    sleep(2)
 #    exit(1)
-start_time = time()
 
 print("Declaring, setting and checking important vars\n")
 #print(os.path.dirname(sys.argv[0]) + "\\wkhtmltoimage.exe")
 
-#This is how far the script goes into comments before stopping
-depthlimit = 15
+#This is how far the script goes into posts before stopping
+depthlimit = 20
 
 randcom = []
 videosToDownload = []
@@ -54,24 +57,47 @@ for selectedurl in randcom:
             continue
         videosToDownload.append(answer["secure_media"]["reddit_video"]["fallback_url"])
 
-downloadtest = requests.get(videosToDownload[0], stream = True)
+i = 0
+for videoToDownload in videosToDownload:
+    downloadvideo = requests.get(videoToDownload, stream = True)
+    print(videoToDownload)
+    with open("downloads\\" + str(i) + ".mp4","wb") as mp4:
+        for chunk in downloadvideo.iter_content(chunk_size=1024):
+            if chunk:
+                mp4.write(chunk)
 
-print(videosToDownload[0])
+    print(videoToDownload.replace(videoToDownload.split("/")[4], ""))
+    downloadaud = requests.get(videoToDownload.replace(videoToDownload.split("/")[4], "") + "audio", stream = True)
+    with open("downloads\\" + str(i) + ".mp3","wb") as mp3:
+        for chunk in downloadaud.iter_content(chunk_size=1024):
+            if chunk:
+                mp3.write(chunk)
+    if Path("downloads\\" + str(i) + ".mp3").stat().st_size == 243:
+      vidgen.combinesoundandvideo("downloads\\" + str(i) + ".mp4", "", "combined\\" + str(i) + ".mp4")
+    else:
+      vidgen.combinesoundandvideo("downloads\\" + str(i) + ".mp4", " -i downloads\\" + str(i) + ".mp3", "combined\\" + str(i) + ".mp4")
+    i = i + 1
 
-with open("test.mp4","wb") as mp4:
-    for chunk in downloadtest.iter_content(chunk_size=1024):
-        if chunk:
-            mp4.write(chunk)
+vidgen.genfinalvid()
 
-print(videosToDownload[0].replace(videosToDownload[0].split("/")[4], ""))
+# downloadtest = requests.get(videosToDownload[0], stream = True)
 
-downloadtestaud = requests.get(videosToDownload[0].replace(videosToDownload[0].split("/")[4], "") + "audio", stream = True)
+# print(videosToDownload[0])
 
-with open("test.mp3","wb") as mp3:
-    for chunk in downloadtestaud.iter_content(chunk_size=1024):
-        if chunk:
-            mp3.write(chunk)
+# with open("test.mp4","wb") as mp4:
+#     for chunk in downloadtest.iter_content(chunk_size=1024):
+#         if chunk:
+#             mp4.write(chunk)
 
-vidgen.combinesoundandvideo()
+# print(videosToDownload[0].replace(videosToDownload[0].split("/")[4], ""))
 
-print("\n\nProgram finished!")
+# downloadtestaud = requests.get(videosToDownload[0].replace(videosToDownload[0].split("/")[4], "") + "audio", stream = True)
+
+# with open("test.mp3","wb") as mp3:
+#     for chunk in downloadtestaud.iter_content(chunk_size=1024):
+#         if chunk:
+#             mp3.write(chunk)
+
+#vidgen.combinesoundandvideo("test.mp4", "test.mp3", "testcom.mp4")
+
+print("\n\nProgram finished! Total Time: " + round(time() - total_time, 2))
