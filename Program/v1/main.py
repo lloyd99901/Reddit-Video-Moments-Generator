@@ -18,7 +18,6 @@ total_time = time()
 #    exit(1)
 start_time = time()
 
-
 print("Declaring, setting and checking important vars\n")
 #print(os.path.dirname(sys.argv[0]) + "\\wkhtmltoimage.exe")
 
@@ -55,11 +54,24 @@ for selectedurl in randcom:
             continue
         videosToDownload.append(answer["secure_media"]["reddit_video"]["fallback_url"])
 
-downloadtest = requests.get(videosToDownload[1], stream = True)
+downloadtest = requests.get(videosToDownload[0], stream = True)
+
+print(videosToDownload[0])
 
 with open("test.mp4","wb") as mp4:
     for chunk in downloadtest.iter_content(chunk_size=1024):
         if chunk:
             mp4.write(chunk)
+
+print(videosToDownload[0].replace(videosToDownload[0].split("/")[4], ""))
+
+downloadtestaud = requests.get(videosToDownload[0].replace(videosToDownload[0].split("/")[4], "") + "audio", stream = True)
+
+with open("test.mp3","wb") as mp3:
+    for chunk in downloadtestaud.iter_content(chunk_size=1024):
+        if chunk:
+            mp3.write(chunk)
+
+vidgen.combinesoundandvideo()
 
 print("\n\nProgram finished!")
