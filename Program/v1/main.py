@@ -7,11 +7,10 @@
 
 import os, sys, requests, json
 from random import randint
-from time import time, sleep
+from time import sleep
 from subprocess import Popen as process
 import vidgen
 from pathlib import Path
-total_time = time()
 #answer = input('-----LunarHunter 2019-----\n-----Reddit Video Moments Generator-----\n\nPlease note the following:\nThis program is under the Unlicense license! I would suggest running in a VM to avoid any problems that prevents termination.\n\n' +   
 #               'Please delete all files in temp and vidgen before running this program! I will add this feature soon but not currently a priority.\n' +
 #               'The final video requires background music so manual editing is required\n\n' +
@@ -100,4 +99,4 @@ vidgen.genfinalvid()
 
 #vidgen.combinesoundandvideo("test.mp4", "test.mp3", "testcom.mp4")
 
-print("\n\nProgram finished! Total Time: " + round(time() - total_time, 2))
+print("\n\nProgram finished!")

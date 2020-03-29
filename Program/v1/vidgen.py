@@ -9,7 +9,7 @@ from time import sleep
 
 def genfinalvid():
     try:
-        os.remove('finalvideo.mp4')
+        os.remove('final.mp4')
     except:
         print("Failed to remove final.mp4")
     filea = "" #"file 'vidgen/question.avi'\n"
@@ -22,6 +22,6 @@ def genfinalvid():
     sleep(0.4)
     os.system("ffmpeg -f concat -safe 0 -i list.txt -c copy final.mp4 > logs\\output.txt 2> logs\\err.txt")
 def combinesoundandvideo(video, audio, outputloc):
-    os.system('ffmpeg -i ' + video + '' + audio +' ' + outputloc + ' > logs\\outputmp4.txt 2> logs\\errmp4.txt')
+    os.system('ffmpeg -i ' + video + audio +' ' + outputloc + ' > logs\\outputmp4.txt 2> logs\\errmp4.txt')
 
 genfinalvid()
