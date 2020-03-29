@@ -26,3 +26,10 @@ def genfinalvid():
     fdata.close()
     sleep(0.4)
     os.system("ffmpeg -f concat -i list.txt -c copy final.mp4 > logs\\output.txt 2> logs\\err.txt")
+def combinesoundandvideo():
+    counta = 0
+    os.system('ffmpeg -i temp\\question1.png -i temp\\question.wav -af "apad=pad_dur=1" -b 30000 -vb 20M -r 11 -vf "scale=1920:-1" vidgen\\question.avi > logs\\outputmp4.txt 2> logs\\errmp4.txt')
+    while counta < 30:
+        print(str(counta))
+        os.system('ffmpeg -i temp\\' + str(counta) + '.png -i temp\\' + str(counta) + '.wav -af "apad=pad_dur=1" -b 30000 -vb 20M -r 11 -vf "scale=1920:-1" vidgen\\' + str(counta) + '.avi > logs\\outputmp4.txt 2> logs\\errmp4.txt')
+        counta = counta + 1
