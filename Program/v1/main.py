@@ -6,30 +6,33 @@
 #Add a list of subreddits, script will grab videos from the randomly chosen subreddit
 
 import os, sys, requests, json
-from random import randint
+from random import randint, choice
 from time import sleep
 from subprocess import Popen as process
 import vidgen
 from pathlib import Path
-#answer = input('-----LunarHunter 2019-----\n-----Reddit Video Moments Generator-----\n\nPlease note the following:\nThis program is under the Unlicense license! I would suggest running in a VM to avoid any problems that prevents termination.\n\n' +   
-#               'Please delete all files in temp and vidgen before running this program! I will add this feature soon but not currently a priority.\n' +
-#               'The final video requires background music so manual editing is required\n\n' +
-#               'Please indicate approval to running the program and agreeing to the terms of the license: [y/n]')
-#if not answer or answer[0].lower() != 'y':
-#    print('You did not indicate approval!')
-#    sleep(2)
-#    exit(1)
+answer = input('-----LunarHunter 2020-----\n-----Reddit Video Moments Generator-----\n\nPlease note the following:\nThis program is under the Unlicense license! I would suggest running in a VM to avoid any problems that prevents termination.\n\n' +   
+               'Please delete all files in downloads and combined before running this program! I will add this feature soon but not currently a priority.\n\n' +
+               'Please indicate approval to running the program and agreeing to the terms of the license: [y/n]')
+if not answer or answer[0].lower() != 'y':
+    print('You did not indicate approval!')
+    sleep(2)
+    exit(1)
 
 print("Declaring, setting and checking important vars\n")
 #print(os.path.dirname(sys.argv[0]) + "\\wkhtmltoimage.exe")
 
 #This is how far the script goes into posts before stopping
-depthlimit = 20
+depthlimit = 30
 
 randcom = []
 videosToDownload = []
 
-link = "https://www.reddit.com/r/WatchPeopleDieInside.json"
+randomlinks = ["https://www.reddit.com/r/WatchPeopleDieInside.json","https://www.reddit.com/r/holdmyfeedingtube.json","https://www.reddit.com/r/WinStupidPrizes.json","https://www.reddit.com/r/instantkarma.json","https://www.reddit.com/r/oddlysatisfying.json"]
+
+link = random.choice(randomlinks)
+
+print("Link chosen: " + link)
 
 if depthlimit <=0 or link == "":
   print("A variable is invaild - ERROR")
@@ -76,6 +79,7 @@ for videoToDownload in videosToDownload:
     else:
       vidgen.combinesoundandvideo("downloads\\" + str(i) + ".mp4", " -i downloads\\" + str(i) + ".mp3", "combined\\" + str(i) + ".mp4")
     i = i + 1
+    print(str(i))
 
 vidgen.genfinalvid()
 
@@ -99,4 +103,5 @@ vidgen.genfinalvid()
 
 #vidgen.combinesoundandvideo("test.mp4", "test.mp3", "testcom.mp4")
 
-print("\n\nProgram finished!")
+print("\n\nProgram finished! Press Enter to exit.")
+input()
