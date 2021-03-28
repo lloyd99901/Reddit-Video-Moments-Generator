@@ -38,9 +38,9 @@ def genfinalvid():
     #os.system("ffmpeg -f concat -safe 0 -i list.txt -c copy final.mp4 > logs\\output.txt 2> logs\\err.txt")
     execfinalvidgeneration()
 def combinesoundandvideo(video, audio, outputloc):
-    os.system('ffmpeg -i ' + video + audio +' ' + outputloc + ' > logs\\outputmp4.txt 2> logs\\errmp4.txt')
+    os.system('ffmpeg -i ' + video + audio +' -vf "scale=1920:-1" ' + outputloc + ' > logs\\outputmp4.txt 2> logs\\errmp4.txt')
 def execfinalvidgeneration():
     os.system("ffmpeg -f concat -safe 0 -i list.txt -c copy final.mp4 > logs\\output.txt 2> logs\\err.txt")
-genfinalvid()
+#genfinalvid()
 
 #execfinalvidgeneration()

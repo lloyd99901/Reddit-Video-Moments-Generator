@@ -6,7 +6,7 @@
 #Add a list of subreddits, script will grab videos from the randomly chosen subreddit
 
 import os, sys, requests, json
-from random import randint, choice
+import random
 from time import sleep
 from subprocess import Popen as process
 import vidgen
@@ -30,7 +30,7 @@ videosToDownload = []
 
 randomlinks = ["https://www.reddit.com/r/WatchPeopleDieInside.json","https://www.reddit.com/r/holdmyfeedingtube.json","https://www.reddit.com/r/WinStupidPrizes.json","https://www.reddit.com/r/instantkarma.json","https://www.reddit.com/r/oddlysatisfying.json"]
 
-link = random.choice(randomlinks)
+link = "https://www.reddit.com/r/WatchPeopleDieInside.json"#random.choice(randomlinks)
 
 print("Link chosen: " + link)
 
@@ -57,7 +57,13 @@ for selectedurl in randcom:
         if answer["over_18"] == True:
             print("Bypassing over 18 post.")
             continue
-        videosToDownload.append(answer["secure_media"]["reddit_video"]["fallback_url"])
+        try:
+            videosToDownload.append(answer["secure_media"]["reddit_video"]["fallback_url"])
+        except:
+            print("failed to add video, continuing...")
+            continue
+
+print(videosToDownload.length())
 
 i = 0
 for videoToDownload in videosToDownload:
