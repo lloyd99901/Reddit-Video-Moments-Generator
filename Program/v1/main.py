@@ -1,6 +1,6 @@
 ﻿#-----Lloyd 2019-----#
 #-----LunarHunter-----#
-#This script is under the The Unlicense license!
+#This script is under the The MIT license!
 
 #TODO:
 #Add a list of subreddits, script will grab videos from the randomly chosen subreddit
