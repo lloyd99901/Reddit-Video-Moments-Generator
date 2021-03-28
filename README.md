@@ -1,5 +1,5 @@
 # Reddit-Video-Moments-Generator
-A script that goes through subreddits, gets a list of some of the videos and downloads them, concatenates them using ffmpeg and (when it's programmed in) posts the result to YouTube.
+A script that goes through subreddits, gets a list of some of the videos and downloads them, concatenates them using FFmpeg and (when it's programmed in) posts the result to YouTube.
 
 
 ## Note:
