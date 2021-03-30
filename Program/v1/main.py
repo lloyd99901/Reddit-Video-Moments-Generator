@@ -11,7 +11,7 @@ from time import sleep
 from subprocess import Popen as process
 import vidgen
 from pathlib import Path
-answer = input('-----LunarHunter 2020-----\n-----Reddit Video Moments Generator-----\n\nPlease note the following:\nThis program is under the Unlicense license! I would suggest running in a VM to avoid any problems that prevents termination.\n\n' +   
+answer = input('-----LunarHunter 2020-----\n-----Reddit Video Moments Generator-----\n\nPlease note the following:\nThis program is under the MIT license! I would suggest running in a VM to avoid any problems that prevents termination.\n\n' +   
                'Please delete all files in downloads and combined before running this program! I will add this feature soon but not currently a priority.\n\n' +
                'Please indicate approval to running the program and agreeing to the terms of the license: [y/n]')
 if not answer or answer[0].lower() != 'y':
